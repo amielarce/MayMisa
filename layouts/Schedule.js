@@ -7,7 +7,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {Table, Rows} from 'react-native-table-component';
+import {Table, Rows, Row} from 'react-native-table-component';
 import Utility from './../functions/Utility';
 
 const weekdays = [
@@ -69,7 +69,7 @@ const Schedule = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.tableText}>Mass Schedule</Text>
+      <Text style={styles.headerText}>Mass Schedule</Text>
       <View style={styles.daySelector}>
         <TouchableOpacity
           style={styles.selectorButton}
@@ -85,7 +85,14 @@ const Schedule = (props) => {
       </View>
       <View>
         <Table>
-          <Rows data={scheduleData} textStyle={styles.tableText} />
+          {scheduleData.map((rowData, index) => (
+            <Row
+              key={index}
+              data={rowData}
+              style={[styles.row, index % 2 && {backgroundColor: '#E0FFFF'}]}
+              textStyle={styles.tableText}
+            />
+          ))}
         </Table>
       </View>
     </View>
@@ -96,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     padding: 5,
+    margin: 2
   },
   daySelector: {
     flexDirection: 'row',
@@ -124,6 +132,16 @@ const styles = StyleSheet.create({
   },
   tableText: {
     fontSize: 16,
+    textAlign: 'left'
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  row: {
+    backgroundColor: '#87CEFA',
+    paddingLeft: 15,
+    minHeight: 40
   },
 });
 

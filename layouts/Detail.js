@@ -25,13 +25,15 @@ const Detail = ({route, navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <Image source={{uri: scheduleDetails.image}} style={styles.image} />
-      <Text style={styles.header}>{scheduleDetails.name}</Text>
-      <Text style={styles.text}>{scheduleDetails.address.details}</Text>
-      <Text
-        style={
-          styles.text
-        }>{`${scheduleDetails.address.barangay}, ${scheduleDetails.address.municipality}, ${scheduleDetails.address.province}`}</Text>
-      <Text style={styles.text}>{`Website: ${scheduleDetails.website}`}</Text>
+      <View style={styles.info}>
+        <Text style={styles.header}>{scheduleDetails.name}</Text>
+        <Text style={styles.text}>{scheduleDetails.address.details}</Text>
+        <Text
+          style={
+            styles.text
+          }>{`${scheduleDetails.address.barangay}, ${scheduleDetails.address.municipality}, ${scheduleDetails.address.province}`}</Text>
+        <Text style={styles.text}>{`Website: ${scheduleDetails.website}`}</Text>
+      </View>
       <Schedule data={scheduleDetails.schedule} />
     </ScrollView>
   );
@@ -60,6 +62,10 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingLeft: 5,
+    fontSize: 16,
+  },
+  info: {
+    margin: 2,
   },
 });
 
