@@ -25,18 +25,22 @@ const DataFetcher = {
     );
 
     var retVal = ['No more masses for today.', ''];
-    daySchedule.forEach((item) => {
+
+    var index = 0;
+    for (index = 0; index < daySchedule.length; index++) {
       // Get hour and minute from
-      const splitTime = item.time.split(':');
-      
+      const splitTime = daySchedule[index].time.split(':');
+
       if (
         parseInt(splitTime[0]) > currentHour ||
         (parseInt(splitTime[0]) === currentHour &&
           parseInt(splitTime[1]) > currentMinute)
       ) {
-        retVal = [item.time, item.language];
+        retVal = [daySchedule[index].time, daySchedule[index].language];
+        break;
       }
-    });
+    }
+
     return retVal; // If no schedule is found
   },
   /***  Obtain the data needed for the display of markers
@@ -52,7 +56,7 @@ const DataFetcher = {
         name: item.name,
         image: item.image,
         nextSchedule: time,
-        language: language
+        language: language,
       };
 
       markerDataArray.push(markerData);
@@ -63,9 +67,9 @@ const DataFetcher = {
     var markerDataArray = [];
 
     // Compute min/max values for latitude and longitude
-    const latMin = region.latitude - region.latitudeDelta/2;
+    const latMin = region.latitude - region.latitudeDelta / 2;
     const latMax = latMin + region.latitudeDelta;
-    const longMin = region.longitude - region.longitudeDelta/2;
+    const longMin = region.longitude - region.longitudeDelta / 2;
     const longMax = longMin + region.longitudeDelta;
 
     Data.filter((item) => {
@@ -75,7 +79,7 @@ const DataFetcher = {
         item.coordinates.longitude >= longMin &&
         item.coordinates.longitude <= longMax
       );
-    }).forEach((item) => {      
+    }).forEach((item) => {
       const [time, language] = this.getNextSchedule(item.id, currentDate);
       var markerData = {
         id: item.id,
@@ -83,7 +87,7 @@ const DataFetcher = {
         name: item.name,
         image: item.image,
         nextSchedule: time,
-        language: language
+        language: language,
       };
 
       markerDataArray.push(markerData);
