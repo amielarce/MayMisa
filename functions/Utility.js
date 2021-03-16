@@ -1,7 +1,11 @@
 const Utility = {
   formatToTwelveHourTime: function (time) {
-    var [hourString, minuteString] = time.split(':');
+    // Handle 'No more masses for today.' cases
+    if (time.search(':') === -1) {
+      return time;
+    }
 
+    var [hourString, minuteString] = time.split(':');
     // Format time
     var meridian = '';
     var hour = parseInt(hourString);
